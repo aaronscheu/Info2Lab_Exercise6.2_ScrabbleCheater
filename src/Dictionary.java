@@ -18,7 +18,7 @@ public class Dictionary {
 
     public Dictionary(String filename) {
         readFile(filename);
-        int mapsize = getNextPrime((int) (1.5 * wordlist.size()));
+        int mapsize = getNextPrime((int) (.75 * wordlist.size()));
         map = new ArrayList[mapsize];
 
         for (int i = 0; i < map.length; i++)

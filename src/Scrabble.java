@@ -20,21 +20,29 @@ public class Scrabble {
 
     public static void main(String[] args) {
         Scrabble scrabble = new Scrabble();
-        scrabble.cheater("nora");
-//        scrabble.dict.maxCollision();
+        String random = scrabble.getRandomString(4);
+
+        System.out.println("Random String: " + random);
+        scrabble.cheater("aron");
+
+        //        scrabble.dict.maxCollision();
     }
 
     public void cheater (String letters) {
         ArrayList<String> permutations = makePermutation(letters);
-        ArrayList<String> words = dict.lookup(letters);
+        ArrayList<String> words = new ArrayList<>();
+        ArrayList<String> out = new ArrayList<>();
 
-        words.parallelStream().forEach( lookedUp ->
-
-            permutations.parallelStream().forEach( (permutation) -> {
-                if (lookedUp.equals(permutation))
-                    System.out.println(permutation);
-            })
+        permutations.stream().forEach( perm ->
+                words.addAll(dict.lookup(perm))
         );
+
+        permutations.parallelStream().forEach( perm -> {
+            if (words.contains(perm))
+                out.add(perm);
+        });
+
+        removeDublicates(out).stream().forEach(System.out::println);
     }
 
 
@@ -48,6 +56,16 @@ public class Scrabble {
                 .toString();
     }
 
+    private ArrayList<String> removeDublicates(ArrayList<String> permutations) {
+        ArrayList<String> truncList = new ArrayList<>();
+
+        permutations.stream().forEach( perm -> {
+            if(!truncList.contains(perm))
+                truncList.add(perm);
+        });
+
+        return truncList;
+    }
 
     private boolean isPermutation(String word, String compare){
         ArrayList<String> permutations = makePermutation(word);
