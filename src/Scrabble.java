@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Random;
 
 
-
 /**
  * Created by amaridev on 22/01/16.
  * Package: PACKAGE_NAME for Exercise6.1_ScrabbleCheater.
@@ -178,8 +177,6 @@ public class Scrabble {
 
         return result;
     }
-
-
 
 
 }
